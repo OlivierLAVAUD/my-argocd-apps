@@ -1,0 +1,12 @@
+# Kubernetes
+*kubeconfig*
+*configmap*
+*secret*
+*namespace*
+
+# Local
+.DS_Store
+.idea/
+.vscode/
+*.tmp
+*.log
