@@ -18,6 +18,7 @@ Kubernetes manifests managed by ArgoCD.
 
 
 ## Structure
+```text
 ├── img
 │   ├── argo.png
 │   └── kubernetes.png
@@ -27,7 +28,7 @@ Kubernetes manifests managed by ArgoCD.
 │   ├── ingress.yaml
 │   └── service.yaml
 ├── README.md
-
+```
 ## Installation 
 
 ### Clone the repo 
