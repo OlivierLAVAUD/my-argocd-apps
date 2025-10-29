@@ -18,7 +18,7 @@ The deployed application is a simple Nginx webapp, but the architecture presente
 
 ## Prerequisite
 - [Docker | Containerization platform](https://www.docker.com/)
-- [Kubernetes | Container orchestration](https://kubernetes.io/docs/tasks/toolsinstall-kubectl-linux/) - for Production Usage
+- [Kubernetes(K8S) | Container orchestration](https://kubernetes.io/releases/download/) - for Production Usage
 - [Minikube | Local Kubernetes cluster](https://minikube.sigs.k8s.io/docs/) - for Development Usage
 - [Argo CD | GitOps continuous delivery ](https://argo-cd.readthedocs.io/en/stable/)
 - [gh (GitHub CLI) | GitHub command line interface](https://cli.github.com/)
