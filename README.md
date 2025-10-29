@@ -93,7 +93,7 @@ kubectl apply -f manifests/application.yaml
 kubectl describe deployment simple-webapp
 ```
 
-# Checking Argo CD Deployment
+### Checking Argo CD Deployment
 ```bash
 
 kubectl get app -n argocd
@@ -101,7 +101,7 @@ kubectl get pods -l app=simple-webapp
 kubectl get app simple-webapp -n argocd -w
 ```
 
-# Cleaning
+## Cleaning
 ```bash
 
 argocd app delete simple-webapp
