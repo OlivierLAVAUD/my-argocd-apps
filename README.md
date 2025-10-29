@@ -35,7 +35,7 @@ Kubernetes manifests managed by ArgoCD.
     git clone https://github.com/OlivierLAVAUD/my-argocd-apps.git
     cd my-argocd-apps
 ```
-### Install Minikube for Development Testing, elsewhere install Kubernetes 
+### Install Minikube for Development Testing, Otherwise install Kubernetes 
 
 ```bash
     curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
