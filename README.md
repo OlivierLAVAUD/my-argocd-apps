@@ -10,8 +10,8 @@ Kubernetes manifests managed by ArgoCD.
 
 ## Prerequisite
     - Docker (https://www.docker.com/)
-    - Minikube (https://minikube.sigs.k8s.io/docs/) # for Development Testing
-    - Kubernetes (https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
+    - Minikube (https://minikube.sigs.k8s.io/docs/) # for Development Tests
+    - Kubernetes (https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) # for Production
     - Argo CD (https://argo-cd.readthedocs.io/en/stable/)
     - gh (https://cli.github.com/)
     - jq (https://doc.ubuntu-fr.org/json_query)
@@ -24,20 +24,21 @@ Kubernetes manifests managed by ArgoCD.
     - `ingress.yaml` 
     - `service.yaml`
 
-
 ## Installation 
+
+### Clone the repo 
 ```bash
-# Install gh
-sudo apt install gh
-
-# create SSH Token in Github with Development Settings Menu
-gh auth login
-
-# set GITHUB env for first access
-GITHUB_USER=<>
-git config --global user.name $GITHUB_USER
-
+    git clone https://github.com/OlivierLAVAUD/my-argocd-apps.git
+    cd my-argocd-apps
 ```
+### Install Minikube for Development Testing, elsewhere install Kubernetes 
+
+```bash
+    curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+    sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+    minikube start
+```
+
 ### Install Argo CD with Kubernetes
 ```bash
     # create namespace Argo CD
@@ -74,10 +75,13 @@ git config --global user.name $GITHUB_USER
     argocd login localhost:8080 --username admin --password $argocd_password
 ```
 
-## Deploy with Argo CD
+## Deploy Application with Argo CD Manifests
 ```bash
-# Appliquer l'application Argo CD
+# Deploy App
 kubectl apply -f manifests/application.yaml
+
+# Application Description
+kubectl describe deployment simple-webapp
 ```
 
 # Checking Argo CD Deployment
@@ -86,4 +90,17 @@ kubectl apply -f manifests/application.yaml
 kubectl get app -n argocd
 kubectl get pods -l app=simple-webapp
 kubectl get app simple-webapp -n argocd -w
+```
+
+# Cleaning
+```bash
+
+argocd app delete simple-webapp
+kubectl delete -f /manifests/application.yaml
+
+minikube stop
+minikube delete
+
+# Supprimer l'environnement Docker
+eval $(minikube docker-env -u)
 ```
