@@ -5,11 +5,15 @@ This project illustrates a concrete implementation of the GitOps methodology for
 The deployed application is a simple Nginx webapp, but the architecture presented applies to any containerized application. All infrastructure configuration is managed as code, enabling complete traceability and reproducible deployments.
 
 ## Applications
-- simple-webapp: Nginx deployment with service
+- simple-webapp: Nginx deployment with service on Kubernetes
 
-Kubernetes manifests managed by ArgoCD.
-![](/img/argo.png).
+
 ![](/img/kubernetes.png).
+
+- Kubernetes manifests managed by ArgoCD.
+
+![](/img/argo.png).
+
 
 
 ## Prerequisite
@@ -48,7 +52,7 @@ Kubernetes manifests managed by ArgoCD.
     minikube start
 ```
 
-### Install Argo CD with Kubernetes
+### Install Argo CD on Kubernetes
 ```bash
     # create namespace Argo CD
     kubectl create namespace argocd
@@ -84,7 +88,8 @@ Kubernetes manifests managed by ArgoCD.
     argocd login localhost:8080 --username admin --password $argocd_password
 ```
 
-## Deploy Application with Argo CD Manifests
+## Deploy Application
+### with Argo CD Manifests
 ```bash
 # Deploy App
 kubectl apply -f manifests/application.yaml
@@ -101,15 +106,122 @@ kubectl get pods -l app=simple-webapp
 kubectl get app simple-webapp -n argocd -w
 ```
 
-## Cleaning
+## Clean & Uninstall
+### Delete Application
 ```bash
-
 argocd app delete simple-webapp
 kubectl delete -f /manifests/application.yaml
+```
 
+### Uninstall Argo CD
+
+```bash
+# Delete Argo CD from Kubernetes
+kubectl delete -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# Delete Namespace
+kubectl delete namespace argocd
+```
+
+### Stop and Clean Minikube
+```bash
 minikube stop
 minikube delete
+```
 
-# Delete in Docke
+### Delete in Docker
+```bash
 eval $(minikube docker-env -u)
+```
+
+
+## Note: Application Deployment Methodology (demo-app sample)
+
+### Create a Namespace in Kuberneretes to host Application 
+```bash
+kubectl create namespace demo-app
+```
+
+
+### Use Argo CD Web Interface (https://localhost:8080) 
+```bash
+    # 1. Access to web interface (https://localhost:8080) 
+    # 2. Create new Application and complete the following form 
+    # NEW APP
+    #     Application Name: my-first-app
+    #     Project: default
+    #     Sync Policy: Manual
+    # SOURCE
+    #   Repository URL: https://github.com/argoproj/argocd-example-apps.git
+    #   Revision: HEAD
+    #   Path: guestbook
+    #
+    # DESTINATION:
+    #   Cluster URL: https://kubernetes.default.svc
+    #   Namespace: demo-app
+    # 3. Click on CREATE
+    # 4. Acces to your Github with authentification
+    # 5. Click on SYNC 
+    # select all the ressources
+    # 6. Click on SYNCHRONIZE
+
+```
+### Using yaml Deployment Manifest 
+```bash
+kubectl apply -f app-deploy.yaml
+```
+
+### Using Argo CD CLI
+```bash
+argocd app create nginx-app \
+  --repo https://github.com/argoproj/argocd-example-apps.git \
+  --path guestbook \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace demo-app \
+  --sync-policy automated \
+  --auto-prune \
+  --self-heal
+
+# check app
+argocd app list
+argocd app get nginx-app
+argocd app diff nginx-app
+argocd app history nginx-app
+```
+
+### Using Advanced Application deployment
+```bash
+# create a local repository
+mkdir my-argocd-demo && cd my-argocd-demo
+git init
+
+# create Kubernetes manifests
+mkdir manifests
+
+argocd app create custom-app \
+  --repo https://github.com/argoproj/argocd-example-apps.git \
+  --path . \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace demo-app \
+  --sync-policy automated
+```
+
+## Cleaning
+### Delete Applications
+
+```bash
+argocd app delete my-first-app
+argocd app delete nginx-app
+argocd app delete custom-app
+```
+### Delete Namespace
+```bash
+kubectl delete namespace demo-app
+```
+
+### Uninstall Argo CD
+
+```bash
+kubectl delete -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl delete namespace argocd
 ```
