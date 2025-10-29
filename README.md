@@ -18,11 +18,15 @@ Kubernetes manifests managed by ArgoCD.
 
 
 ## Structure
-- `manifests/` - Kubernetes resource files
-    - `application.yaml` - ArgoCD Application definition
-    - `deployment.yaml` 
-    - `ingress.yaml` 
-    - `service.yaml`
+├── img
+│   ├── argo.png
+│   └── kubernetes.png
+├── manifests
+│   ├── application.yaml
+│   ├── deployment.yaml
+│   ├── ingress.yaml
+│   └── service.yaml
+├── README.md
 
 ## Installation 
 
@@ -71,7 +75,7 @@ Kubernetes manifests managed by ArgoCD.
     sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
     rm argocd-linux-amd64
 
-# Se connecter via CLI
+# Get connect with Argo CD  CLI
     argocd login localhost:8080 --username admin --password $argocd_password
 ```
 
@@ -101,6 +105,6 @@ kubectl delete -f /manifests/application.yaml
 minikube stop
 minikube delete
 
-# Supprimer l'environnement Docker
+# Delete in Docke
 eval $(minikube docker-env -u)
 ```
