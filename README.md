@@ -1,5 +1,9 @@
 # My ArgoCD Apps
 
+This project illustrates a concrete implementation of the GitOps methodology for automated application deployment on Kubernetes. Using Argo CD as the synchronization engine, it demonstrates how to maintain a fully declarative, versioned, and self-patching cloud-native environment.
+
+The deployed application is a simple Nginx webapp, but the architecture presented applies to any containerized application. All infrastructure configuration is managed as code, enabling complete traceability and reproducible deployments.
+
 ## Applications
 - simple-webapp: Nginx deployment with service
 
