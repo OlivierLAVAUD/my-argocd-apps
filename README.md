@@ -17,12 +17,12 @@ The deployed application is a simple Nginx webapp, but the architecture presente
 
 
 ## Prerequisite
-    - Docker (https://www.docker.com/)
-    - Minikube (https://minikube.sigs.k8s.io/docs/) # for Development Tests
-    - Kubernetes (https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) # for Production
-    - Argo CD (https://argo-cd.readthedocs.io/en/stable/)
-    - gh (https://cli.github.com/)
-    - jq (https://doc.ubuntu-fr.org/json_query)
+    - Docker ( https://www.docker.com/ )
+    - Minikube ( https://minikube.sigs.k8s.io/docs/ ) # for Development Tests
+    - Kubernetes ( https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/ ) # for Production
+    - Argo CD ( https://argo-cd.readthedocs.io/en/stable/ )
+    - gh ( https://cli.github.com/ )
+    - jq ( https://doc.ubuntu-fr.org/json_query )
 
 
 ## Structure
